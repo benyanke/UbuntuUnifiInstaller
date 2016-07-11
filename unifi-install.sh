@@ -6,6 +6,8 @@ if [ "$EUID" -ne 0 ]
   exit
 fi
 
+# https://community.ubnt.com/t5/UniFi-Updates-Blog/UniFi-3-2-1-is-released/ba-p/872360
+
 # Ask w/ Ncurses or similar:
 
 # -Running on Domain or IP?
