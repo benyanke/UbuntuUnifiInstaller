@@ -13,6 +13,8 @@ fi
 # -Install beta or production release of unifi controller?
 # -Switch to port 80/443 with nginx redirect? or leave at 8080
 
+# or: deb http://www.ubnt.com/downloads/unifi/distros/deb/ubuntu ubuntu ubiquiti
+
 echo "deb http://www.ubnt.com/downloads/unifi/distros/deb/squeeze squeeze ubiquiti" >> /etc/apt/sources.list.d/20ubiquiti.list
 apt-key adv --keyserver keyserver.ubuntu.com --recv C0A52C50
 echo "deb http://downloads-distro.mongodb.org/repo/ubuntu-upstart dist 10gen" >> /etc/apt/sources.list.d/21mongodb.list
