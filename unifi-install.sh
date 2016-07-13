@@ -74,11 +74,13 @@ if [ $(cat $tempfile1) -eq 2 ]; then
     # email validity check
     leEmail=$(cat $tempfile6 | grep -E "^\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,6}\b$");
     if [ $? -ne 0 ]; then
+    
         dialog  --backtitle "$backTitleText" \
         --title "Email Not Valid" \
         --infobox "\n$(cat $tempfile6) does not appear to be a valid email address. Exiting.\n\n" 0 0 
         exit 1;
     fi ## end email validity check
+    leEmail=$(cat $tempfile6);
     
     messageForProgress="Installing Unifi and Let's Encrypt on $domain"
     installQuestion="Do you want to continue installing the Unifi control panel on *$domain* with a Let's Encrypt certificate?"
