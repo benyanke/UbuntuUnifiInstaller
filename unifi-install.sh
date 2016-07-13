@@ -45,7 +45,7 @@ if [ $(cat $tempfile1) -eq 2 ]; then
   2 "No"   2> $tempfile2
   
   # LE Check
-  if [ $(cat $tempfile2) -eq 2 ]; then
+  if [ $(cat $tempfile2) -eq 1 ]; then
     
     dialog  --backtitle "$backTitleText" \
     --title "Let's Encrypt" \
