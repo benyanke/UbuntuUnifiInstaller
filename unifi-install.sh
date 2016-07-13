@@ -102,7 +102,7 @@ apt -qq install nginx -y
 
 # from: https://thatservernerd.com/2016/04/01/install-unifi-on-ubuntu-server-14-04/
 
-echo "deb http://www.ubnt.com/downloads/unifi/debian stable ubiquiti" >> /etc/apt/sources.list.d/20ubiquiti.list
+echo "deb http://www.ubnt.com/downloads/unifi/debian stable ubiquiti" >> /etc/apt/sources.list.d/20unifi.list
 apt-key adv --keyserver keyserver.ubuntu.com --recv C0A52C50
 
 
