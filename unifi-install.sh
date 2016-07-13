@@ -96,7 +96,7 @@ dialog  --backtitle "$backTitleText" \
 dialog  --backtitle "$backTitleText" \
 --title "$messageForProgress" \
 --infobox "\nInstalling, please wait. \n\nThis could take a while....\n\n" 0 0 &
-sleep 2 &
+apt update &
 wait;
 
 apt update
