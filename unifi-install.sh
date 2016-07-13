@@ -6,7 +6,7 @@ if [ "$EUID" -ne 0 ]
   exit
 fi
 
-installCheck=${dpkg-query -W -f='${Status}\n' curl | head -n1 | awk '{print $3;}' }
+installCheck=$(dpkg-query -W -f='${Status}\n' dialog | head -n1 | awk '{print $3;}')
 
 echo $installCheck;
 
