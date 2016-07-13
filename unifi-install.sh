@@ -100,10 +100,11 @@ apt update
 apt -qq install nginx -y
 
 
-echo "deb http://www.ubnt.com/downloads/unifi/distros/deb/ubuntu ubuntu ubiquiti" >> /etc/apt/sources.list.d/20ubiquiti.list
+# from: https://thatservernerd.com/2016/04/01/install-unifi-on-ubuntu-server-14-04/
+
+echo "deb http://www.ubnt.com/downloads/unifi/debian stable ubiquiti" >> /etc/apt/sources.list.d/20ubiquiti.list
 apt-key adv --keyserver keyserver.ubuntu.com --recv C0A52C50
-echo "deb http://downloads-distro.mongodb.org/repo/ubuntu-upstart dist 10gen" >> /etc/apt/sources.list.d/21mongodb.list
-apt-key adv --keyserver keyserver.ubuntu.com --recv 7F0CEB10
+
 
 apt-get update
 apt-get install unifi -y
