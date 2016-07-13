@@ -35,6 +35,15 @@ dialog  --backtitle "$backTitleText" \
 1 "IP Address" \
 2 "Domain Name"  2> $tempfile1
 
+echo $(cat $tempfile1);
+
+if [ $? -ne 0 ]; then
+    dialog  --backtitle "$backTitleText" \
+    --title "Domain Not Valid" \
+    --infobox "\n $domain does not appear to be a valid domain name. Exiting.\n" 0 0 
+    exit 1;
+fi
+
 dialog  --backtitle "$backTitleText" \
 --title "Let's Encrypt" \
 --menu "\nDo you want to set up Let's Encrypt for this control panel?\n" 0 0 0 \
