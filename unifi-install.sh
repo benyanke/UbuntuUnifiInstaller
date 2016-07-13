@@ -175,9 +175,9 @@ openssl dhparam -out /etc/ssl/certs/dhparam.pem 2048  > /dev/null 2>&1 &
   clear;
 fi
 
-if [[ "$useNginx" -eq 1 ]]; then
+if [ $useNginx -eq 1 ]; then
   configpath="/etc/nginx/sites-available/";
-  mv $configPath/default $configPath/old-default
+  mv $configPath/default $configPath/old-default;
   configFile="$configPath/default"
   touch $configFile;
 
