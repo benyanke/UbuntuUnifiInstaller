@@ -77,7 +77,7 @@ dialog  --backtitle "$backTitleText" \
 
 dialog  --backtitle "$backTitleText" \
 --title "$messageForProgress" \
---infobox "\nInstalling, please wait. \n\nThis could take a while....\n" 0 0 &
+--infobox "\nInstalling, please wait. \n\nThis could take a while....\n\n" 0 0 &
 sleep 5 &
 wait;
 echo "hi";
