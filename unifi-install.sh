@@ -44,7 +44,7 @@ if [ $(cat $tempfile1) -eq 2 ]; then
   1 "Let's Encrypt Certificate" \
   2 "Self-Signed Certificate"   2> $tempfile2
 
-    dialog  --backtitle "$backTitleText" \
+  dialog  --backtitle "$backTitleText" \
   --title "Domain" \
   --inputbox "\nWhat domain name do you wish to use (ex: example.com)?\n\n" 0 0  2> $tempfile3
   
@@ -60,8 +60,6 @@ if [ $(cat $tempfile1) -eq 2 ]; then
   # LE Check
   if [ $(cat $tempfile2) -eq 1 ]; then
   
-
-    
     dialog  --backtitle "$backTitleText" \
     --title "Let's Encrypt" \
     --msgbox "\nNote: You must already have the DNS configured to point *$domain* to this server in order to continue.\n\n" 0 0;
@@ -78,6 +76,10 @@ else
 fi ## end domain check
 
 dialog  --backtitle "$backTitleText" \
+--title "Port" \
+--inputbox "\nWhat port do you wish to use?\n\n" 0 0  2> $tempfile5
+
+dialog  --backtitle "$backTitleText" \
 --title "Confirmation" \
 --yesno "\n$installQuestion\n" 0 0   2> $tempfile4
 
@@ -88,10 +90,7 @@ sleep 5 &
 wait;
 echo "hi";
 
-
-
 exit;
-
 
 # https://community.ubnt.com/t5/UniFi-Updates-Blog/UniFi-3-2-1-is-released/ba-p/872360
 
