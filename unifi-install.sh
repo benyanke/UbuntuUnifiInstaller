@@ -17,13 +17,22 @@ fi
 
 #http://www.unixcl.com/2009/12/linux-dialog-utility-short-tutorial.html
 
-dialog --backtitle "Initial Configuration" \
---menu "Will this Unifi Control Panel be primarily accessable by domain name or by IP address?" 12 40 3 \
- 1 "IP" \
- 2 "Domain Name"
- 
- 
 
+ dialog  --backtitle "Initial Configuration" \
+--title "Let's Encrypt" \
+--menu "Do you want to set up Let's Encrypt for this control panel?" 12 55 5 \
+1 "Yes" \
+2 "No"
+
+ dialog  --backtitle "Initial Configuration" \
+--title "Domain or IP?" \
+--menu "Will this Unifi Control Panel be primarily accessable by domain name or by IP address?" 12 55 5 \
+1 "IP Address" \
+2 "Domain Name"
+
+ dialog  --backtitle "Initial Configuration" \
+--title "Domain" \
+--inputbox "What domain name will you be using?" 8 50
 
 
 
