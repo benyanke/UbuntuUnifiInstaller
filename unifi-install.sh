@@ -66,13 +66,11 @@ if [ $(cat $tempfile1) -eq 2 ]; then
     dialog  --backtitle "$backTitleText" \
     --title "Let's Encrypt" \
     --msgbox "\nNote: You must already have the DNS configured to point *$domain* to this server in order to continue.\n\n" 0 0;
-
+    
     dialog  --backtitle "$backTitleText" \
     --title "Email for Let's Encrypt" \
     --inputbox "\nWhat email should be used for Let's Encrypt?\n\n" 0 0  2> $tempfile6
     
-    
-
     # email validity check
     leEmail=$(cat $tempfile6 | grep -E "^\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,6}\b$");
     if [ $? -ne 0 ]; then
@@ -103,7 +101,7 @@ dialog  --backtitle "$backTitleText" \
   if [ "$port" -lt 1 ] || [ "$port" -gt 65535]; then
     dialog  --backtitle "$backTitleText" \
     --title "Port Not Valid" \
-    --infobox "\n$port does not appear to be a valid TCP port. Exiting.\n\n" 0 0 
+    --infobox "\n$port does not appear to be a valid TCP port. Exiting.\n\n" 0 0;
     exit 1;
   fi ## end domain validity check
 
