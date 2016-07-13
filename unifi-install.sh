@@ -41,8 +41,8 @@ if [ $(cat $tempfile1) -eq 2 ]; then
   dialog  --backtitle "$backTitleText" \
   --title "Let's Encrypt" \
   --menu "\nWhat Certificate do you want to use?\n\n" 0 0 0 \
-  1 "Let's Encrypt" \
-  2 "Unifi default"   2> $tempfile2
+  1 "Let's Encrypt Certificate" \
+  2 "Self-Signed Certificate"   2> $tempfile2
 
     dialog  --backtitle "$backTitleText" \
   --title "Domain" \
