@@ -17,6 +17,13 @@ fi
 
 #http://www.unixcl.com/2009/12/linux-dialog-utility-short-tutorial.html
 
+dialog --backtitle "Initial Configuration" \
+--radiolist "Will this Unifi Control Panel be primarily accessable by domain name or by IP address?" 10 40 3 \
+ 1 "IP" on \
+ 2 "Domain Name" off
+
+
+
 exit;
 
 
