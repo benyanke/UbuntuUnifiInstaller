@@ -21,8 +21,10 @@ file='/home/user9/work/conf.txt'
 tempfile1=/tmp/dialog_1_$$
 tempfile2=/tmp/dialog_2_$$
 tempfile3=/tmp/dialog_3_$$
+tempfile4=/tmp/dialog_4_$$
+tempfile5=/tmp/dialog_5_$$
 
-trap "rm -f $tempfile1 $tempfile2 $tempfile3" 0 1 2 5 15
+trap "rm -f $tempfile1 $tempfile2 $tempfile3 $tempfile4 $tempfile5" 0 1 2 5 15
 
 
 
@@ -33,13 +35,13 @@ dialog  --backtitle "$backTitleText" \
 --title "Domain or IP?" \
 --menu "\nWill this Unifi Control Panel be primarily accessable by domain name or by IP address?\n" 0 0 0 \
 1 "IP Address" \
-2 "Domain Name";
+2 "Domain Name"  2> $tempfile1
 
 dialog  --backtitle "$backTitleText" \
 --title "Let's Encrypt" \
 --menu "\nDo you want to set up Let's Encrypt for this control panel?\n" 0 0 0 \
 1 "Yes" \
-2 "No";
+2 "No"   2> $tempfile2
 
 dialog  --backtitle "$backTitleText" \
 --title "Let's Encrypt" \
@@ -48,14 +50,14 @@ dialog  --backtitle "$backTitleText" \
 
 dialog  --backtitle "$backTitleText" \
 --title "Domain" \
---inputbox "\nWhat domain name do you wish to use (ex: example.com)\n?" 0 0;
+--inputbox "\nWhat domain name do you wish to use (ex: example.com)?\n" 0 0  2> $tempfile3
 
 # dev testing
 domain="test.com";
 
 dialog  --backtitle "$backTitleText" \
 --title "Confirmation?" \
---yesno "\nDo you want to continue installing the Unifi control panel on $domain?\n" 0 0
+--yesno "\nDo you want to continue installing the Unifi control panel on $domain?\n" 0 0   2> $tempfile4
 
 message="Installing Unifi and Let's Encrypt"
 
