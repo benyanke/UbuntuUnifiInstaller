@@ -15,7 +15,7 @@ if [ $installCheck != 'installed' ]; then
   apt-get install dialog -y >/dev/null 2>&1
 fi
 
-echo "installed";
+#http://www.unixcl.com/2009/12/linux-dialog-utility-short-tutorial.html
 
 exit;
 
