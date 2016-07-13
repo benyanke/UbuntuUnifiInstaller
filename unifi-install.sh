@@ -155,7 +155,7 @@ ufw --force enable
 # Let's encrypt certificate
 if [[ "$useLe" -eq 1 ]]; then
   service nginx stop
-  if [ -d "/opt/letsencrypt"]; then  
+  if [ $(is_dir "/opt/letsencrypt") == "NO" ]
     git clone https://github.com/letsencrypt/letsencrypt /opt/letsencrypt
   else
     git -C /opt/letsencrypt pull
