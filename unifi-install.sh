@@ -46,18 +46,12 @@ if [ $(cat $tempfile1) -eq 2 ]; then
   
   # LE Check
   if [ $(cat $tempfile2) -eq 1 ]; then
-    
-    dialog  --backtitle "$backTitleText" \
-    --title "Let's Encrypt" \
-    --msgbox "\nNote: You must already have the DNS configured or Let's Encrypt setup to continue with certificate issuance.\n" 0 0;
-    
-    
+  
     dialog  --backtitle "$backTitleText" \
     --title "Domain" \
     --inputbox "\nWhat domain name do you wish to use (ex: example.com)?\n" 0 0  2> $tempfile3
     
     # Domain validity check
-    
     domain=$(cat $tempfile3 | grep -P "^[a-zA-Z0-9]+([-.]?[a-zA-Z0-9]+)*\.[a-zA-Z]+$")
     if [ $? -ne 0 ]; then
         dialog  --backtitle "$backTitleText" \
@@ -65,6 +59,15 @@ if [ $(cat $tempfile1) -eq 2 ]; then
         --infobox "\n *$(cat $tempfile3)* does not appear to be a valid domain name. Exiting.\n" 0 0 
         exit 1;
     fi ## end domain validity check
+    
+    dialog  --backtitle "$backTitleText" \
+    --title "Let's Encrypt" \
+    --msgbox "\nNote: You must already have the DNS configured to point $domain to this server in order to continue.\n" 0 0;
+  
+    
+
+    
+
     messageForProgress="Installing Unifi and Let's Encrypt"
   else
     messageForProgress="Installing Unifi"
