@@ -52,9 +52,14 @@ dialog  --backtitle "$backTitleText" \
 --title "Domain" \
 --inputbox "\nWhat domain name do you wish to use (ex: example.com)?\n" 0 0  2> $tempfile3
 
-
-cat $tempfile3 | grep -P "^[a-zA-Z0-9]+([-.]?[a-zA-Z0-9]+)*\.[a-zA-Z]+$"
-echo $eq
+# Domain validity check
+domain=$(cat $tempfile3 | grep -P "^[a-zA-Z0-9]+([-.]?[a-zA-Z0-9]+)*\.[a-zA-Z]+$")
+if [ $? -eq 0 ]; then
+    echo "OK"
+else
+    echo "FAIL"
+    exit;
+fi
 
 # dev testing
 domain=$(cat $tempfile3)
