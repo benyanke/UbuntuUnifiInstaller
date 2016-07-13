@@ -181,7 +181,7 @@ if [[ "$useNginx" -eq 1 ]]; then
   echo " " >> $configFile
   echo " " >> $configFile
   echo "server {" >> $configFile
-  echo "  listen 443;" >> $configFile
+  echo "  listen $port;" >> $configFile
   echo "  server_name $domain;" >> $configFile
   echo "  ssl_certificate           /etc/letsencrypt/live/$domain/fullchain.pem;" >> $configFile
   echo "  ssl_certificate_key       /etc/letsencrypt/live/$domain/privkey.pem;" >> $configFile
