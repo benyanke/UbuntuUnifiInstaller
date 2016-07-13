@@ -115,18 +115,16 @@ dialog  --backtitle "$backTitleText" \
 
 dialog  --backtitle "$backTitleText" \
 --title "$messageForProgress" \
---infobox "\nInstalling, please wait. \n\nThis could take a while....\n\n" 0 0
-
-sleep 5;
+--infobox "\nInstalling, please wait. \n\nThis could take a while....\n\n" 0 0 &
 
 # from: https://thatservernerd.com/2016/04/01/install-unifi-on-ubuntu-server-14-04/
 
 # Add unifi software to apt lists
-echo "deb http://www.ubnt.com/downloads/unifi/debian stable ubiquiti" > /etc/apt/sources.list.d/20unifi.list
-apt-key adv --keyserver keyserver.ubuntu.com --recv C0A52C50
+(echo "deb http://www.ubnt.com/downloads/unifi/debian stable ubiquiti" > /etc/apt/sources.list.d/20unifi.list
+apt-key adv --keyserver keyserver.ubuntu.com --recv C0A52C50) > /dev/null 2>&1
 
 # Get Packages
-  apt-get update
+  apt-get update > /dev/null 2>&1
   
 # if port is not 8443 OR we're using Let's Encrypt, 
 # setup nginx proxy to handle certs and redirection
@@ -138,9 +136,18 @@ else
   useNginx=0
 fi
 
+# Wait for install to complete
+wait;
+
+
+# Generate stronger DH groups
+openssl dhparam -out /etc/ssl/certs/dhparam.pem 2048  > /dev/null 2>&1 &
+
 # Setup nginx to proxy to unifi
 # Let's encrypt certificate
-if [[ "$useLe" -eq 1 ]]; then
+
+(
+  if [[ "$useLe" -eq 1 ]]; then
   service nginx stop
   if [ -d "/opt/letsencrypt" ]; then
     git -C /opt/letsencrypt pull
@@ -156,8 +163,9 @@ if [[ "$useLe" -eq 1 ]]; then
     
   service nginx start;
 fi
+)  > /dev/null 2>&1 &
 
-
+(
 if [[ "$useNginx" -eq 1 ]]; then
   configpath="/etc/nginx/sites-available/";
   mv $configPath/default $configPath/old-default
@@ -204,11 +212,11 @@ if [[ "$useNginx" -eq 1 ]]; then
   echo "  }" >> $configFile
   echo "}" >> $configFile
 
-  service nginx restart;
-fi # end nginx check
+ fi # end nginx check
+) > /dev/null 2>&1 &
 
 # Enable firewall
-ufw disable
+(ufw disable
 ufw --force reset
 ufw default deny incoming
 ufw default allow outgoing
@@ -221,13 +229,11 @@ ufw allow 8880
 ufw allow 8843
 ufw allow 27117
 ufw allow $port
-ufw --force enable
+ufw --force enable) > /dev/null 2>&1 &
 
-# Generate stronger DH groups
-openssl dhparam -out /etc/ssl/certs/dhparam.pem 2048
-
-
-
+# Wait for all background tasks to run
+wait;
+service nginx restart
 
 dialog  --backtitle "$backTitleText" \
   --title "Complete!" \
