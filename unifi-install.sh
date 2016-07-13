@@ -126,7 +126,7 @@ apt-get update
 apt-get install unifi nginx ufw git -y
 
 # Enable firewall
-
+ufw disable
 ufw default deny incoming
 ufw default allow outgoing
 ufw allow 22
