@@ -25,6 +25,8 @@ tempfile4=/tmp/dialog_4_$$
 tempfile5=/tmp/dialog_5_$$
 tempfile5=/tmp/dialog_6_$$
 
+touch $tempfile1 $tempfile2 $tempfile3 $tempfile4 $tempfile5 $tempfile6;
+
 trap "rm -f $tempfile1 $tempfile2 $tempfile3 $tempfile4 $tempfile5 $tempfile6" 0 1 2 5 15
 
 
