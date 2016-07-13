@@ -157,7 +157,7 @@ openssl dhparam -out /etc/ssl/certs/dhparam.pem 2048  > /dev/null 2>&1 &
 # Setup nginx to proxy to unifi
 # Let's encrypt certificate
 
-  if [[ "$useLe" -eq 1 ]]; then
+if [[ "$useLe" -eq 1 ]]; then
   service nginx stop
   if [ -d "/opt/letsencrypt" ]; then
     git -C /opt/letsencrypt pull
