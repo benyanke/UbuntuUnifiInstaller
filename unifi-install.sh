@@ -40,9 +40,9 @@ if [ $(cat $tempfile1) -eq 2 ]; then
 
   dialog  --backtitle "$backTitleText" \
   --title "Let's Encrypt" \
-  --menu "\nDo you want to set up Let's Encrypt for this control panel?\n\n" 0 0 0 \
-  1 "Yes" \
-  2 "No"   2> $tempfile2
+  --menu "\nWhat Certificate do you want to use?\n\n" 0 0 0 \
+  1 "Let's Encrypt" \
+  2 "Unifi default"   2> $tempfile2
   
   # LE Check
   if [ $(cat $tempfile2) -eq 1 ]; then
