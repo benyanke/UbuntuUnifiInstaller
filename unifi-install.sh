@@ -62,7 +62,7 @@ if [ $(cat $tempfile1) -eq 2 ]; then
     if [ $? -ne 0 ]; then
         dialog  --backtitle "$backTitleText" \
         --title "Domain Not Valid" \
-        --infobox "\n $domain does not appear to be a valid domain name. Exiting.\n" 0 0 
+        --infobox "\n *$(cat $tempfile3)* does not appear to be a valid domain name. Exiting.\n" 0 0 
         exit 1;
     fi ## end domain validity check
     messageForProgress="Installing Unifi and Let's Encrypt"
