@@ -43,22 +43,24 @@ if [ $(cat $tempfile1) -eq 2 ]; then
   --menu "\nWhat Certificate do you want to use?\n\n" 0 0 0 \
   1 "Let's Encrypt" \
   2 "Unifi default"   2> $tempfile2
+
+    dialog  --backtitle "$backTitleText" \
+  --title "Domain" \
+  --inputbox "\nWhat domain name do you wish to use (ex: example.com)?\n\n" 0 0  2> $tempfile3
+  
+  # Domain validity check
+  domain=$(cat $tempfile3 | grep -P "^[a-zA-Z0-9]+([-.]?[a-zA-Z0-9]+)*\.[a-zA-Z]+$")
+  if [ $? -ne 0 ]; then
+      dialog  --backtitle "$backTitleText" \
+      --title "Domain Not Valid" \
+      --infobox "\n*$(cat $tempfile3)* does not appear to be a valid domain name. Exiting.\n\n" 0 0 
+      exit 1;
+  fi ## end domain validity check
   
   # LE Check
   if [ $(cat $tempfile2) -eq 1 ]; then
   
-    dialog  --backtitle "$backTitleText" \
-    --title "Domain" \
-    --inputbox "\nWhat domain name do you wish to use (ex: example.com)?\n\n" 0 0  2> $tempfile3
-    
-    # Domain validity check
-    domain=$(cat $tempfile3 | grep -P "^[a-zA-Z0-9]+([-.]?[a-zA-Z0-9]+)*\.[a-zA-Z]+$")
-    if [ $? -ne 0 ]; then
-        dialog  --backtitle "$backTitleText" \
-        --title "Domain Not Valid" \
-        --infobox "\n*$(cat $tempfile3)* does not appear to be a valid domain name. Exiting.\n\n" 0 0 
-        exit 1;
-    fi ## end domain validity check
+
     
     dialog  --backtitle "$backTitleText" \
     --title "Let's Encrypt" \
