@@ -138,19 +138,6 @@ else
   useNginx=0
 fi
 
-
-# Enable firewall
-ufw disable
-ufw --force reset
-ufw default deny incoming
-ufw default allow outgoing
-ufw allow 22
-ufw allow 80
-ufw allow 8080
-ufw allow $port
-ufw --force enable
-
-
 # Setup nginx to proxy to unifi
 # Let's encrypt certificate
 if [[ "$useLe" -eq 1 ]]; then
@@ -167,10 +154,20 @@ if [[ "$useLe" -eq 1 ]]; then
     --email $leEmail \
     -d $domain
     
-  service nginx start
+  service nginx start;
 fi
 
-
+# Enable firewall
+ufw disable
+ufw --force reset
+ufw default deny incoming
+ufw default allow outgoing
+ufw allow 22
+ufw allow 80
+ufw allow 443
+ufw allow 8080
+ufw allow $port
+ufw --force enable
 
 exit
 
