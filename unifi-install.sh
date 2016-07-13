@@ -100,7 +100,7 @@ dialog  --backtitle "$backTitleText" \
   port=$(cat $tempfile5)
   
   # is port valid
-  if [ $port -lt 1 ] || [ $port -gt 65535]; then
+  if [ "$port" -lt 1 ] || [ "$port" -gt 65535]; then
     dialog  --backtitle "$backTitleText" \
     --title "Port Not Valid" \
     --infobox "\n$port does not appear to be a valid TCP port. Exiting.\n\n" 0 0 
