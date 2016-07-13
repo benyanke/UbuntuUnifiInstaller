@@ -23,7 +23,7 @@ tempfile2=/tmp/dialog_2_$$
 tempfile3=/tmp/dialog_3_$$
 tempfile4=/tmp/dialog_4_$$
 tempfile5=/tmp/dialog_5_$$
-tempfile5=/tmp/dialog_6_$$
+tempfile6=/tmp/dialog_6_$$
 
 # touch $tempfile1 $tempfile2 $tempfile3 $tempfile4 $tempfile5 $tempfile6;
 
@@ -69,7 +69,7 @@ if [ $(cat $tempfile1) -eq 2 ]; then
     
     dialog  --backtitle "$backTitleText" \
     --title "Email for Let's Encrypt" \
-    --inputbox "\nWhat email should be used for Let's Encrypt?\n\n" 0 0  2> "$tempfile6"
+    --inputbox "\nWhat email should be used for Let's Encrypt?\n\n" 0 0  2> $tempfile6
     
     # email validity check
     leEmail=$(cat $tempfile6 | grep -E "^\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,6}\b$");
