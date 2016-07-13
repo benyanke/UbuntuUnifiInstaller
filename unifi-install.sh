@@ -232,6 +232,7 @@ ufw allow $port
 ufw --force enable) > /dev/null 2>&1 &
 
 # Wait for all background tasks to run
+echo "Waiting for install to complete"
 wait;
 service nginx restart
 
