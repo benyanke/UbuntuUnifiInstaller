@@ -107,7 +107,7 @@ fi ## end domain check
 
 dialog  --backtitle "$backTitleText" \
 --title "Port" \
---inputbox "\nWhat TCP port do you wish to use? \n\n" 0 0  2> $tempfile5
+--inputbox "\nWhat TCP port do you wish to use for the HTTPS connection? (suggested: 443) \n\n" 0 0  2> $tempfile5
 
   port=$(cat $tempfile5)
   
