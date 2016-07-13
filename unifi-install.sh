@@ -47,8 +47,10 @@ dialog  --backtitle "$backTitleText" \
 --title "Confirmation?" \
 --yesno "\nDo you want to continue installing the Unifi control panel on $domain?\n" 10 30
 
+message="Installing Unifi and Let's Encrypt"
+
 dialog  --backtitle "$backTitleText" \
---title "Confirmation?" \
+--title "$message" \
 --infobox "\nInstalling, please wait. \n\nThis could take a while....\n" 7 40 &
 sleep 5 &
 wait;
