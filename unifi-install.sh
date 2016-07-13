@@ -157,7 +157,6 @@ openssl dhparam -out /etc/ssl/certs/dhparam.pem 2048 &
 # Setup nginx to proxy to unifi
 # Let's encrypt certificate
 
-(
   if [[ "$useLe" -eq 1 ]]; then
   service nginx stop
   if [ -d "/opt/letsencrypt" ]; then
@@ -175,9 +174,7 @@ openssl dhparam -out /etc/ssl/certs/dhparam.pem 2048 &
   service nginx start;
   clear;
 fi
-) &
 
-(
 if [[ "$useNginx" -eq 1 ]]; then
   configpath="/etc/nginx/sites-available/";
   mv $configPath/default $configPath/old-default
@@ -225,10 +222,10 @@ if [[ "$useNginx" -eq 1 ]]; then
   echo "}" >> $configFile
   clear;
  fi # end nginx check
-) &
+
 
 # Enable firewall
-(ufw disable
+ufw disable
 ufw --force reset
 ufw default deny incoming
 ufw default allow outgoing
@@ -241,7 +238,7 @@ ufw allow 8880
 ufw allow 8843
 ufw allow 27117
 ufw allow $port
-ufw --force enable) &
+ufw --force enable
 
 # Wait for all background tasks to run
 echo "Waiting for install to complete"
