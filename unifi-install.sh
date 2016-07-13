@@ -162,6 +162,7 @@ openssl dhparam -out /etc/ssl/certs/dhparam.pem 2048  > /dev/null 2>&1 &
     -d $domain
     
   service nginx start;
+  clear;
 fi
 ) &
 
@@ -211,9 +212,9 @@ if [[ "$useNginx" -eq 1 ]]; then
   echo "    proxy_redirect      https://$domain:8443/ https://$domain;" >> $configFile
   echo "  }" >> $configFile
   echo "}" >> $configFile
-
+  clear;
  fi # end nginx check
-) > /dev/null 2>&1 &
+) &
 
 # Enable firewall
 (ufw disable
@@ -229,7 +230,7 @@ ufw allow 8880
 ufw allow 8843
 ufw allow 27117
 ufw allow $port
-ufw --force enable) > /dev/null 2>&1 &
+ufw --force enable) &
 
 # Wait for all background tasks to run
 echo "Waiting for install to complete"
