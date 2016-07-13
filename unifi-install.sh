@@ -61,8 +61,10 @@ if [ $(cat $tempfile1) -eq 2 ]; then
   fi ## end domain validity check
   
   # LE Check
+  useLe=0;
   if [ $(cat $tempfile2) -eq 1 ]; then
-  
+    useLe=1;
+    
     dialog  --backtitle "$backTitleText" \
     --title "Let's Encrypt" \
     --msgbox "\nNote: You must already have the DNS configured to point *$domain* to this server in order to continue.\n\n" 0 0;
@@ -95,7 +97,7 @@ fi ## end domain check
 
 dialog  --backtitle "$backTitleText" \
 --title "Port" \
---inputbox "\nWhat TCP port do you wish to use? (if in doubt, use 443)\n\n" 0 0  2> $tempfile5
+--inputbox "\nWhat TCP port do you wish to use? \n\n" 0 0  2> $tempfile5
 
   port=$(cat $tempfile5)
   
@@ -124,22 +126,33 @@ echo "deb http://www.ubnt.com/downloads/unifi/debian stable ubiquiti" > /etc/apt
 apt-key adv --keyserver keyserver.ubuntu.com --recv C0A52C50
 
 # Get Packages
-apt-get update
-apt-get install unifi nginx ufw git -y
+  apt-get update
+  
+#if port is not 8443, setup nginx proxy
+if [[ "$port" -ne 8443]] || [[ $useLe -eq 1]]; then
+  apt-get install unifi ufw git nginx -y
+  useNginx=1
+else
+  apt-get install unifi ufw git -y
+  useNginx=0
+fi
+
 
 # Enable firewall
 ufw disable
+ufw reset
 ufw default deny incoming
 ufw default allow outgoing
 ufw allow 22
 ufw allow 80
+ufw allow 8080
 ufw allow $port
 ufw --force enable
 
 
 # Setup nginx to proxy to unifi
 # Let's encrypt certificate
-if [[ $(cat $tempfile2) -eq 1 ]]; then
+if [[ $useLe -eq 1 ]]; then
   service nginx stop
   if [ -d "/opt/letsencrypt"]; then  
     git clone https://github.com/letsencrypt/letsencrypt /opt/letsencrypt
@@ -155,6 +168,9 @@ if [[ $(cat $tempfile2) -eq 1 ]]; then
     
   service nginx start
 fi
+
+
+
 exit
 
 server {
