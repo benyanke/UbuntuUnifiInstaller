@@ -27,8 +27,6 @@ tempfile5=/tmp/dialog_5_$$
 trap "rm -f $tempfile1 $tempfile2 $tempfile3 $tempfile4 $tempfile5" 0 1 2 5 15
 
 
-
-
 backTitleText="Unifi Initial Configuration"
 
 dialog  --backtitle "$backTitleText" \
@@ -53,16 +51,15 @@ dialog  --backtitle "$backTitleText" \
 --inputbox "\nWhat domain name do you wish to use (ex: example.com)?\n" 0 0  2> $tempfile3
 
 # Domain validity check
+
 domain=$(cat $tempfile3 | grep -P "^[a-zA-Z0-9]+([-.]?[a-zA-Z0-9]+)*\.[a-zA-Z]+$")
-if [ $? -eq 0 ]; then
-    echo "OK"
-else
-    echo "FAIL"
-    exit;
+if [ $? -ne 0 ]; then
+    dialog  --backtitle "$backTitleText" \
+    --title "Domain Not Valid" \
+    --infobox "\n $domain does not appear to be a valid domain name. Exiting.\n" 0 0 
+    exit 1;
 fi
 
-# dev testing
-domain=$(cat $tempfile3)
 
 dialog  --backtitle "$backTitleText" \
 --title "Confirmation?" \
