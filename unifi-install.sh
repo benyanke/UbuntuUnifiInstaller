@@ -69,7 +69,7 @@ if [ $(cat $tempfile1) -eq 2 ]; then
     
     dialog  --backtitle "$backTitleText" \
     --title "Email for Let's Encrypt" \
-    --inputbox "\nWhat email should be used for Let's Encrypt?\n\n" 0 0  2> $tempfile6
+    --inputbox "\nWhat email should be used for Let's Encrypt?\n\n" 0 0  2> "$tempfile6"
     
     # email validity check
     leEmail=$(cat $tempfile6 | grep -E "^\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,6}\b$");
