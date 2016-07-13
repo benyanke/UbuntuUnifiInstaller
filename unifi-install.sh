@@ -159,47 +159,47 @@ fi
 
 
 if [[ "$useNginx" -eq 1 ]]; then
+  configpath="/etc/nginx/sites-available/";
+  mv $configPath/default $configPath/old-default
+  configFile="$configPath/default"
+  touch $configFile;
 
-server {
-        listen 80;
-        return 301 https://unifi.publicserver.xyz$request_uri;
-}
+  echo "server {" > $configFile
+  echo "  listen 80;" >> $configFile
+  echo "  return 301 https://$domain$request_uri;" >> $configFile
+  echo "}" >> $configFile
+  echo "" >> $configFile
+  echo "" >> $configFile
+  echo "server {" >> $configFile
+  echo "  listen 443;" >> $configFile
+  echo "  server_name $domain;" >> $configFile
+  echo "  ssl_certificate           /etc/letsencrypt/live/$domain/cert.pem;" >> $configFile
+  echo "  ssl_certificate_key       /etc/letsencrypt/live/$domain/privkey.pem;" >> $configFile
+  echo "" >> $configFile
+  echo "  ssl on;" >> $configFile
+  echo "  ssl_session_cache  builtin:1000  shared:SSL:10m;" >> $configFile
+  echo "  ssl_protocols  TLSv1 TLSv1.1 TLSv1.2;" >> $configFile
+  echo "  ssl_ciphers HIGH:!aNULL:!eNULL:!EXPORT:!CAMELLIA:!DES:!MD5:!PSK:!RC4;" >> $configFile
+  echo "  ssl_prefer_server_ciphers on;" >> $configFile
+  echo "  " >> $configFile
+  echo "  access_log            /var/log/nginx/unifi.access.log;" >> $configFile
+  echo "  " >> $configFile
+  echo "  location / {" >> $configFile
+  echo "    proxy_set_header        Host $host;" >> $configFile
+  echo "    proxy_set_header        X-Real-IP $remote_addr;" >> $configFile
+  echo "    proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;" >> $configFile
+  echo "    proxy_set_header        X-Forwarded-Proto $scheme;" >> $configFile
+  echo "  " >> $configFile
+  echo "    # Fix the “It appears that your reverse proxy set up is broken" error." >> $configFile
+  echo "    proxy_pass          https://unifi.publicserver.xyz:8443;" >> $configFile
+  echo "    proxy_read_timeout  90;" >> $configFile
+  echo "" >> $configFile
+  echo "    proxy_redirect      https://unifi.publicserver.xyz:8443/ https://unifi.publicserver.xyz;" >> $configFile
+  echo "  }" >> $configFile
+  echo "}" >> $configFile
 
-server {
-        listen 443;
-
-        server_name unifi.publicserver.xyz;
-
-        ssl_certificate           /etc/letsencrypt/live/unifi.publicserver.xyz/cert.pem;
-        ssl_certificate_key       /etc/letsencrypt/live/unifi.publicserver.xyz/privkey.pem;
-
-        ssl on;
-        ssl_session_cache  builtin:1000  shared:SSL:10m;
-        ssl_protocols  TLSv1 TLSv1.1 TLSv1.2;
-        ssl_ciphers HIGH:!aNULL:!eNULL:!EXPORT:!CAMELLIA:!DES:!MD5:!PSK:!RC4;
-        ssl_prefer_server_ciphers on;
-
-        access_log            /var/log/nginx/jenkins.access.log;
-
-    location / {
-
-      proxy_set_header        Host $host;
-      proxy_set_header        X-Real-IP $remote_addr;
-      proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;
-      proxy_set_header        X-Forwarded-Proto $scheme;
-
-      # Fix the “It appears that your reverse proxy set up is broken" error.
-      proxy_pass          https://unifi.publicserver.xyz:8443;
-      proxy_read_timeout  90;
-
-      proxy_redirect      https://unifi.publicserver.xyz:8443/ https://unifi.publicserver.xyz;
-    }
-  }
-
-
-
-
-
+  service nginx restart
+fi # end nginx check
 
 # Enable firewall
 ufw disable
