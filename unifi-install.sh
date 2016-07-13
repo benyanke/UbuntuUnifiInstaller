@@ -241,6 +241,8 @@ ufw allow $port
 ufw --force enable
 
 # Wait for all background tasks to run
+echo " ";
+echo " ";
 echo "Waiting for install to complete"
 wait;
 
