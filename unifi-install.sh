@@ -6,6 +6,19 @@ if [ "$EUID" -ne 0 ]
   exit
 fi
 
+installCheck=${dpkg-query -W -f='${Status}\n' curl | head -n1 | awk '{print $3;}' }
+
+if [ "$installCheck != 'installed' ]; then
+  echo "Installing needed tools"
+  apt-get update >/dev/null 2>&1
+  apt-get install dialog -y >/dev/null 2>&1
+fi
+
+echo "installed";
+
+die;
+
+
 # https://community.ubnt.com/t5/UniFi-Updates-Blog/UniFi-3-2-1-is-released/ba-p/872360
 
 # Ask w/ Ncurses or similar:
