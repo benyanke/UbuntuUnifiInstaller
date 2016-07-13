@@ -166,6 +166,10 @@ ufw allow 22
 ufw allow 80
 ufw allow 443
 ufw allow 8080
+ufw allow 8443
+ufw allow 8880
+ufw allow 8843
+ufw allow 27117
 ufw allow $port
 ufw --force enable
 
@@ -180,3 +184,4 @@ server {
         proxy_pass         http://127.0.0.1:2368;
     }
 }
+
