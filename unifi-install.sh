@@ -96,24 +96,11 @@ dialog  --backtitle "$backTitleText" \
 dialog  --backtitle "$backTitleText" \
 --title "$messageForProgress" \
 --infobox "\nInstalling, please wait. \n\nThis could take a while....\n\n" 0 0 &
-apt update &
-wait;
+apt update
+apt -qq install nginx -y
 
 
-
-# https://community.ubnt.com/t5/UniFi-Updates-Blog/UniFi-3-2-1-is-released/ba-p/872360
-
-# Ask w/ Ncurses or similar:
-
-# -Running on Domain or IP?
-#  -- If domain:  install ssl with let's encrypt?
-# -Install beta or production release of unifi controller?
-# -Switch to port 80/443 with nginx redirect? or leave at 8080
-
-# or: 
 echo "deb http://www.ubnt.com/downloads/unifi/distros/deb/ubuntu ubuntu ubiquiti" >> /etc/apt/sources.list.d/20ubiquiti.list
-
-echo "deb http://www.ubnt.com/downloads/unifi/distros/deb/squeeze squeeze ubiquiti" >> /etc/apt/sources.list.d/20ubiquiti.list
 apt-key adv --keyserver keyserver.ubuntu.com --recv C0A52C50
 echo "deb http://downloads-distro.mongodb.org/repo/ubuntu-upstart dist 10gen" >> /etc/apt/sources.list.d/21mongodb.list
 apt-key adv --keyserver keyserver.ubuntu.com --recv 7F0CEB10
@@ -121,9 +108,7 @@ apt-key adv --keyserver keyserver.ubuntu.com --recv 7F0CEB10
 apt-get update
 apt-get install unifi -y
 
-# Beta Option:
-# apt-get install unifi-beta -y
-
+exit
 
 3.- u will get a java error. * Starting Ubiquiti UniFi Controller unifi Cannot locate Java Home [fail] .. to fix it run the following commands
 # nano /etc/init.d/unifi
