@@ -31,7 +31,7 @@ backTitleText="Unifi Initial Configuration"
 
 dialog  --backtitle "$backTitleText" \
 --title "Domain or IP?" \
---menu "\nWill this Unifi Control Panel be accessable by domain name or by IP address?\n" 0 0 0 \
+--menu "\nWill this Unifi Control Panel be accessable by domain name or by IP address?\n\n" 0 0 0 \
 1 "IP Address" \
 2 "Domain Name"  2> $tempfile1
 
@@ -40,7 +40,7 @@ if [ $(cat $tempfile1) -eq 2 ]; then
 
   dialog  --backtitle "$backTitleText" \
   --title "Let's Encrypt" \
-  --menu "\nDo you want to set up Let's Encrypt for this control panel?\n" 0 0 0 \
+  --menu "\nDo you want to set up Let's Encrypt for this control panel?\n\n" 0 0 0 \
   1 "Yes" \
   2 "No"   2> $tempfile2
   
@@ -49,24 +49,20 @@ if [ $(cat $tempfile1) -eq 2 ]; then
   
     dialog  --backtitle "$backTitleText" \
     --title "Domain" \
-    --inputbox "\nWhat domain name do you wish to use (ex: example.com)?\n" 0 0  2> $tempfile3
+    --inputbox "\nWhat domain name do you wish to use (ex: example.com)?\n\n" 0 0  2> $tempfile3
     
     # Domain validity check
     domain=$(cat $tempfile3 | grep -P "^[a-zA-Z0-9]+([-.]?[a-zA-Z0-9]+)*\.[a-zA-Z]+$")
     if [ $? -ne 0 ]; then
         dialog  --backtitle "$backTitleText" \
         --title "Domain Not Valid" \
-        --infobox "\n *$(cat $tempfile3)* does not appear to be a valid domain name. Exiting.\n" 0 0 
+        --infobox "\n *$(cat $tempfile3)* does not appear to be a valid domain name. Exiting.\n\n" 0 0 
         exit 1;
     fi ## end domain validity check
     
     dialog  --backtitle "$backTitleText" \
     --title "Let's Encrypt" \
-    --msgbox "\nNote: You must already have the DNS configured to point $domain to this server in order to continue.\n" 0 0;
-  
-    
-
-    
+    --msgbox "\nNote: You must already have the DNS configured to point $domain to this server in order to continue.\n\n" 0 0;
 
     messageForProgress="Installing Unifi and Let's Encrypt"
   else
