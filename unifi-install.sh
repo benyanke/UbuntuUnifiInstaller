@@ -99,9 +99,7 @@ dialog  --backtitle "$backTitleText" \
 apt update &
 wait;
 
-apt update
 
-exit;
 
 # https://community.ubnt.com/t5/UniFi-Updates-Blog/UniFi-3-2-1-is-released/ba-p/872360
 
