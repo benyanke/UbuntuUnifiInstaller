@@ -217,5 +217,11 @@ ufw allow 27117
 ufw allow $port
 ufw --force enable
 
+
+
+dialog  --backtitle "$backTitleText" \
+  --title "Complete!" \
+  --infobox "\nSetup complete! \n\n Visit https://$domain:$port to view Unifi control panel.\n\n" 0 0;
+  
 exit
 
