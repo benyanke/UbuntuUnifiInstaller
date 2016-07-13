@@ -157,6 +157,50 @@ if [[ "$useLe" -eq 1 ]]; then
   service nginx start;
 fi
 
+
+if [[ "$useNginx" -eq 1 ]]; then
+
+server {
+        listen 80;
+        return 301 https://unifi.publicserver.xyz$request_uri;
+}
+
+server {
+        listen 443;
+
+        server_name unifi.publicserver.xyz;
+
+        ssl_certificate           /etc/letsencrypt/live/unifi.publicserver.xyz/cert.pem;
+        ssl_certificate_key       /etc/letsencrypt/live/unifi.publicserver.xyz/privkey.pem;
+
+        ssl on;
+        ssl_session_cache  builtin:1000  shared:SSL:10m;
+        ssl_protocols  TLSv1 TLSv1.1 TLSv1.2;
+        ssl_ciphers HIGH:!aNULL:!eNULL:!EXPORT:!CAMELLIA:!DES:!MD5:!PSK:!RC4;
+        ssl_prefer_server_ciphers on;
+
+        access_log            /var/log/nginx/jenkins.access.log;
+
+    location / {
+
+      proxy_set_header        Host $host;
+      proxy_set_header        X-Real-IP $remote_addr;
+      proxy_set_header        X-Forwarded-For $proxy_add_x_forwarded_for;
+      proxy_set_header        X-Forwarded-Proto $scheme;
+
+      # Fix the “It appears that your reverse proxy set up is broken" error.
+      proxy_pass          https://unifi.publicserver.xyz:8443;
+      proxy_read_timeout  90;
+
+      proxy_redirect      https://unifi.publicserver.xyz:8443/ https://unifi.publicserver.xyz;
+    }
+  }
+
+
+
+
+
+
 # Enable firewall
 ufw disable
 ufw --force reset
@@ -174,14 +218,4 @@ ufw allow $port
 ufw --force enable
 
 exit
-
-server {
-    listen 80;
-    server_name your-domain-name.com;
-    location / {
-        proxy_set_header   X-Real-IP $remote_addr;
-        proxy_set_header   Host      $http_host;
-        proxy_pass         http://127.0.0.1:2368;
-    }
-}
 
