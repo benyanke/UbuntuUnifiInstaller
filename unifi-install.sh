@@ -25,7 +25,7 @@ tempfile4=/tmp/dialog_4_$$
 tempfile5=/tmp/dialog_5_$$
 tempfile5=/tmp/dialog_6_$$
 
-touch $tempfile1 $tempfile2 $tempfile3 $tempfile4 $tempfile5 $tempfile6;
+# touch $tempfile1 $tempfile2 $tempfile3 $tempfile4 $tempfile5 $tempfile6;
 
 trap "rm -f $tempfile1 $tempfile2 $tempfile3 $tempfile4 $tempfile5 $tempfile6" 0 1 2 5 15
 
@@ -100,7 +100,7 @@ dialog  --backtitle "$backTitleText" \
   port=$(cat $tempfile5)
   
   # is port valid
-  if [ $port -lt 1 ] || [ $port -gt 65535]; then
+  if [[ $port -lt 1 ]] || [[ $port -gt 65535]]; then
     dialog  --backtitle "$backTitleText" \
     --title "Port Not Valid" \
     --infobox "\n$port does not appear to be a valid TCP port. Exiting.\n\n" 0 0 
@@ -139,7 +139,7 @@ ufw --force enable
 
 # Setup nginx to proxy to unifi
 # Let's encrypt certificate
-if [ $(cat $tempfile2) -eq 1 ]; then
+if [[ $(cat $tempfile2) -eq 1 ]]; then
   service nginx stop
   
   git clone https://github.com/letsencrypt/letsencrypt /opt/letsencrypt
