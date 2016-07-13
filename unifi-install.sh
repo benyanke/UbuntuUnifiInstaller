@@ -53,7 +53,7 @@ dialog  --backtitle "$backTitleText" \
 --inputbox "\nWhat domain name do you wish to use (ex: example.com)?\n" 0 0  2> $tempfile3
 
 # dev testing
-domain="test.com";
+domain=$(cat $tempfile3)
 
 dialog  --backtitle "$backTitleText" \
 --title "Confirmation?" \
