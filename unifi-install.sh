@@ -173,14 +173,20 @@ if [[ "$useNginx" -eq 1 ]]; then
   echo "server {" >> $configFile
   echo "  listen 443;" >> $configFile
   echo "  server_name $domain;" >> $configFile
-  echo "  ssl_certificate           /etc/letsencrypt/live/$domain/cert.pem;" >> $configFile
+  echo "  ssl_certificate           /etc/letsencrypt/live/$domain/fullchain.pem;" >> $configFile
   echo "  ssl_certificate_key       /etc/letsencrypt/live/$domain/privkey.pem;" >> $configFile
   echo " " >> $configFile
   echo "  ssl on;" >> $configFile
-  echo "  ssl_session_cache  builtin:1000  shared:SSL:10m;" >> $configFile
-  echo "  ssl_protocols  TLSv1 TLSv1.1 TLSv1.2;" >> $configFile
-  echo "  ssl_ciphers HIGH:!aNULL:!eNULL:!EXPORT:!CAMELLIA:!DES:!MD5:!PSK:!RC4;" >> $configFile
   echo "  ssl_prefer_server_ciphers on;" >> $configFile
+  echo "  ssl_protocols TLSv1 TLSv1.1 TLSv1.2;" >> $configFile
+  echo "  ssl_dhparam /etc/ssl/certs/dhparam.pem;" >> $configFile
+  echo "  ssl_ciphers 'ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-AES256-GCM-SHA384:DHE-RSA-AES128-GCM-SHA256:DHE-DSS-AES128-GCM-SHA256:kEDH+AESGCM:ECDHE-RSA-AES128-SHA256:ECDHE-ECDSA-AES128-SHA256:ECDHE-RSA-AES128-SHA:ECDHE-ECDSA-AES128-SHA:ECDHE-RSA-AES256-SHA384:ECDHE-ECDSA-AES256-SHA384:ECDHE-RSA-AES256-SHA:ECDHE-ECDSA-AES256-SHA:DHE-RSA-AES128-SHA256:DHE-RSA-AES128-SHA:DHE-DSS-AES128-SHA256:DHE-RSA-AES256-SHA256:DHE-DSS-AES256-SHA:DHE-RSA-AES256-SHA:AES128-GCM-SHA256:AES256-GCM-SHA384:AES128-SHA256:AES256-SHA256:AES128-SHA:AES256-SHA:AES:CAMELLIA:DES-CBC3-SHA:!aNULL:!eNULL:!EXPORT:!DES:!RC4:!MD5:!PSK:!aECDH:!EDH-DSS-DES-CBC3-SHA:!EDH-RSA-DES-CBC3-SHA:!KRB5-DES-CBC3-SHA';" >> $configFile
+  echo "  ssl_session_timeout 1d;" >> $configFile
+  echo "  ssl_session_cache shared:SSL:50m;" >> $configFile
+  echo "  ssl_stapling on;" >> $configFile
+  echo "  ssl_stapling_verify on;" >> $configFile
+  echo "  add_header Strict-Transport-Security max-age=15768000;" >> $configFile
+  echo "  " >> $configFile  
   echo "  " >> $configFile
   echo "  access_log            /var/log/nginx/unifi.access.log;" >> $configFile
   echo "  " >> $configFile
@@ -190,7 +196,7 @@ if [[ "$useNginx" -eq 1 ]]; then
   echo "    proxy_set_header        X-Forwarded-For \$proxy_add_x_forwarded_for;" >> $configFile
   echo "    proxy_set_header        X-Forwarded-Proto \$scheme;" >> $configFile
   echo "  " >> $configFile
-  echo "    # Fix the “It appears that your reverse proxy set up is broken" error." >> $configFile
+  echo "    # Fix the \"It appears that your reverse proxy set up is broken\" error." >> $configFile
   echo "    proxy_pass          https://$domain:8443;" >> $configFile
   echo "    proxy_read_timeout  90;" >> $configFile
   echo " " >> $configFile
@@ -216,6 +222,10 @@ ufw allow 8843
 ufw allow 27117
 ufw allow $port
 ufw --force enable
+
+# Generate stronger DH groups
+openssl dhparam -out /etc/ssl/certs/dhparam.pem 2048
+
 
 
 
