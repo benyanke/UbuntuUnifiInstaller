@@ -64,7 +64,7 @@ if [ $(cat $tempfile1) -eq 2 ]; then
     
     dialog  --backtitle "$backTitleText" \
     --title "Let's Encrypt" \
-    --msgbox "\nNote: You must already have the DNS configured to point $domain to this server in order to continue.\n\n" 0 0;
+    --msgbox "\nNote: You must already have the DNS configured to point *$domain* to this server in order to continue.\n\n" 0 0;
 
     messageForProgress="Installing Unifi and Let's Encrypt on $domain"
     installQuestion="Do you want to continue installing the Unifi control panel on *$domain* with a Let's Encrypt certificate?"
