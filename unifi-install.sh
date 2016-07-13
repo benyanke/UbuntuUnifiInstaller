@@ -151,8 +151,8 @@ wait;
 
 
 # Generate stronger DH groups
-# openssl dhparam -out /etc/ssl/certs/dhparam.pem 2048  > /dev/null 2>&1 &
-openssl dhparam -out /etc/ssl/certs/dhparam.pem 2048 &
+openssl dhparam -out /etc/ssl/certs/dhparam.pem 2048  > /dev/null 2>&1 &
+# openssl dhparam -out /etc/ssl/certs/dhparam.pem 2048 &
 
 # Setup nginx to proxy to unifi
 # Let's encrypt certificate
