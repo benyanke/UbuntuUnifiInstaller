@@ -128,8 +128,9 @@ apt-key adv --keyserver keyserver.ubuntu.com --recv C0A52C50
 # Get Packages
   apt-get update
   
-#if port is not 8443, setup nginx proxy
-if [[ "$port" -ne 8443]] || [[ "$useLe" -eq 1 ]]; then
+# if port is not 8443 OR we're using Let's Encrypt, 
+# setup nginx proxy to handle certs and redirection
+if [ "$port" -ne 8443] || [ "$useLe" -eq 1 ]; then
   apt-get install unifi ufw git nginx -y
   useNginx=1
 else
