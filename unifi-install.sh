@@ -141,15 +141,18 @@ ufw --force enable
 # Let's encrypt certificate
 if [[ $(cat $tempfile2) -eq 1 ]]; then
   service nginx stop
+  if [ -d "/opt/letsencrypt"]; then  
+    git clone https://github.com/letsencrypt/letsencrypt /opt/letsencrypt
+  else
+    git -C /opt/letsencrypt pull
+  fi
   
-  git clone https://github.com/letsencrypt/letsencrypt /opt/letsencrypt
   /opt/letsencrypt/letsencrypt-auto certonly \
     --standalone \
     --standalone-supported-challenges tls-sni-01 \
     --email $leEmail \
     -d $domain
     
-  $tempfile6
   service nginx start
 fi
 exit
