@@ -96,31 +96,31 @@ dialog  --backtitle "$backTitleText" \
 dialog  --backtitle "$backTitleText" \
 --title "$messageForProgress" \
 --infobox "\nInstalling, please wait. \n\nThis could take a while....\n\n" 0 0 &
-apt update
-apt -qq install nginx -y
-
 
 # from: https://thatservernerd.com/2016/04/01/install-unifi-on-ubuntu-server-14-04/
 
-echo "deb http://www.ubnt.com/downloads/unifi/debian stable ubiquiti" >> /etc/apt/sources.list.d/20unifi.list
+echo "deb http://www.ubnt.com/downloads/unifi/debian stable ubiquiti" > /etc/apt/sources.list.d/20unifi.list
 apt-key adv --keyserver keyserver.ubuntu.com --recv C0A52C50
 
 
 apt-get update
-apt-get install unifi -y
+apt-get install unifi nginx ufw -y
+
+ufw default deny incoming
+ufw default allow outgoing
+ufw allow 22
+ufw allow 80
+ufw allow $port
+ufw --force enable
 
 exit
 
-3.- u will get a java error. * Starting Ubiquiti UniFi Controller unifi Cannot locate Java Home [fail] .. to fix it run the following commands
-# nano /etc/init.d/unifi
-search for JAVA_HOME and change the path to /usr/lib/jvm/java-7-openjdk-amd64
-now  
-
-
-sudo /etc/init.d/unifi start
-
-apt-get remove unifi
-apt-get remove unifi-beta
-
-wget http://www.ubnt.com/downloads/unifi/4.2.0/unifi_sysvinit_all.deb
-dpkg -i unifi_sysvinit_all.de
+server {
+    listen 80;
+    server_name your-domain-name.com;
+    location / {
+        proxy_set_header   X-Real-IP $remote_addr;
+        proxy_set_header   Host      $http_host;
+        proxy_pass         http://127.0.0.1:2368;
+    }
+}
