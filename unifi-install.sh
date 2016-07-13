@@ -80,7 +80,7 @@ dialog  --backtitle "$backTitleText" \
 --inputbox "\nWhat port do you wish to use?\n\n" 0 0  2> $tempfile5
   
   # is port valid
-  if [ $(cat $tempfile5) -lt 1 ||  $(cat $tempfile5) -gt 65535]; then
+  if [ $(cat $tempfile5) -lt 1 ] || [ $(cat $tempfile5) -gt 65535]; then
       dialog  --backtitle "$backTitleText" \
       --title "Port Not Valid" \
       --infobox "\n*$(cat $tempfile5)* does not appear to be a valid port. Exiting.\n\n" 0 0 
