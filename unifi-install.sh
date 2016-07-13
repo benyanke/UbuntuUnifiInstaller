@@ -17,22 +17,28 @@ fi
 
 #http://www.unixcl.com/2009/12/linux-dialog-utility-short-tutorial.html
 
+backTitleText="Unifi Initial Configuration"
 
- dialog  --backtitle "Initial Configuration" \
---title "Let's Encrypt" \
---menu "Do you want to set up Let's Encrypt for this control panel?" 12 55 5 \
-1 "Yes" \
-2 "No"
-
- dialog  --backtitle "Initial Configuration" \
+ dialog  --backtitle "$backTitleText" \
 --title "Domain or IP?" \
 --menu "Will this Unifi Control Panel be primarily accessable by domain name or by IP address?" 12 55 5 \
 1 "IP Address" \
-2 "Domain Name"
+2 "Domain Name";
 
- dialog  --backtitle "Initial Configuration" \
+ dialog  --backtitle "$backTitleText" \
+--title "Let's Encrypt" \
+--menu "Do you want to set up Let's Encrypt for this control panel?" 12 55 5 \
+1 "Yes" \
+2 "No";
+
+ dialog  --backtitle "$backTitleText" \
+--title "Let's Encrypt" \
+--msgbox "\nNote: You must already have the DNS configured or Let's Encrypt setup to continue with certificate issuance." 9 50;
+
+
+ dialog  --backtitle "$backTitleText" \
 --title "Domain" \
---inputbox "What domain name will you be using?" 8 50
+--inputbox "What domain name do you wish to use?" 8 50;
 
 
 
