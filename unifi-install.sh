@@ -21,35 +21,35 @@ backTitleText="Unifi Initial Configuration"
 
 dialog  --backtitle "$backTitleText" \
 --title "Domain or IP?" \
---menu "\nWill this Unifi Control Panel be primarily accessable by domain name or by IP address?" 12 55 5 \
+--menu "\nWill this Unifi Control Panel be primarily accessable by domain name or by IP address?\n" 12 55 5 \
 1 "IP Address" \
 2 "Domain Name";
 
 dialog  --backtitle "$backTitleText" \
 --title "Let's Encrypt" \
---menu "\nDo you want to set up Let's Encrypt for this control panel?" 12 55 5 \
+--menu "\nDo you want to set up Let's Encrypt for this control panel?\n" 12 55 5 \
 1 "Yes" \
 2 "No";
 
 dialog  --backtitle "$backTitleText" \
 --title "Let's Encrypt" \
---msgbox "\nNote: You must already have the DNS configured or Let's Encrypt setup to continue with certificate issuance." 9 50;
+--msgbox "\nNote: You must already have the DNS configured or Let's Encrypt setup to continue with certificate issuance.\n" 9 50;
 
 
 dialog  --backtitle "$backTitleText" \
 --title "Domain" \
---inputbox "\nWhat domain name do you wish to use (ex: example.com)?" 8 50;
+--inputbox "\nWhat domain name do you wish to use (ex: example.com)\n?" 10 50;
 
 # dev testing
 domain="test.com";
 
 dialog  --backtitle "$backTitleText" \
 --title "Confirmation?" \
---yesno "\nDo you want to continue installing the Unifi control panel on $domain?" 10 30
+--yesno "\nDo you want to continue installing the Unifi control panel on $domain?\n" 10 30
 
 dialog  --backtitle "$backTitleText" \
 --title "Confirmation?" \
---infobox "\nInstalling, please wait. \n\nThis could take a while...." 7 40 &
+--infobox "\nInstalling, please wait. \n\nThis could take a while....\n" 7 40 &
 sleep 5 &
 wait;
 echo "hi";
