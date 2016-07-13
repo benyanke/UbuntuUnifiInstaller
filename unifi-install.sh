@@ -176,7 +176,7 @@ if [[ "$useLe" -eq 1 ]]; then
 fi
 
 if [ $useNginx -eq 1 ]; then
-  configpath="/etc/nginx/sites-available/";
+  configPath="/etc/nginx/sites-available/";
   mv $configPath/default $configPath/old-default;
   configFile="$configPath/default"
   touch $configFile;
