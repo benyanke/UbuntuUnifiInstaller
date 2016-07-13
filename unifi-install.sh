@@ -8,9 +8,6 @@ fi
 
 installCheck=$(dpkg-query -W -f='${Status}\n' dialog | head -n1 | awk '{print $3;}')
 
-echo $installCheck;
-
-exit;
 
 if [ "$installCheck != 'installed' ]; then
   echo "Installing needed tools.";
