@@ -23,8 +23,9 @@ tempfile2=/tmp/dialog_2_$$
 tempfile3=/tmp/dialog_3_$$
 tempfile4=/tmp/dialog_4_$$
 tempfile5=/tmp/dialog_5_$$
+tempfile5=/tmp/dialog_6_$$
 
-trap "rm -f $tempfile1 $tempfile2 $tempfile3 $tempfile4 $tempfile5" 0 1 2 5 15
+trap "rm -f $tempfile1 $tempfile2 $tempfile3 $tempfile4 $tempfile5 $tempfile6" 0 1 2 5 15
 
 
 backTitleText="Unifi Initial Configuration"
@@ -64,6 +65,21 @@ if [ $(cat $tempfile1) -eq 2 ]; then
     --title "Let's Encrypt" \
     --msgbox "\nNote: You must already have the DNS configured to point *$domain* to this server in order to continue.\n\n" 0 0;
 
+    dialog  --backtitle "$backTitleText" \
+    --title "Email for Let's Encrypt" \
+    --inputbox "\nWhat email should be used for Let's Encrypt?\n\n" 0 0  2> $tempfile6
+    
+    
+
+    # email validity check
+    leEmail=$(cat $tempfile6 | grep -E "^\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,6}\b$");
+    if [ $? -ne 0 ]; then
+        dialog  --backtitle "$backTitleText" \
+        --title "Email Not Valid" \
+        --infobox "\n$(cat $tempfile6) does not appear to be a valid email address. Exiting.\n\n" 0 0 
+        exit 1;
+    fi ## end email validity check
+    
     messageForProgress="Installing Unifi and Let's Encrypt on $domain"
     installQuestion="Do you want to continue installing the Unifi control panel on *$domain* with a Let's Encrypt certificate?"
   else
@@ -95,16 +111,21 @@ dialog  --backtitle "$backTitleText" \
 
 dialog  --backtitle "$backTitleText" \
 --title "$messageForProgress" \
---infobox "\nInstalling, please wait. \n\nThis could take a while....\n\n" 0 0 &
+--infobox "\nInstalling, please wait. \n\nThis could take a while....\n\n" 0 0
+
+sleep 5;
 
 # from: https://thatservernerd.com/2016/04/01/install-unifi-on-ubuntu-server-14-04/
 
+# Add unifi software to apt lists
 echo "deb http://www.ubnt.com/downloads/unifi/debian stable ubiquiti" > /etc/apt/sources.list.d/20unifi.list
 apt-key adv --keyserver keyserver.ubuntu.com --recv C0A52C50
 
-
+# Get Packages
 apt-get update
-apt-get install unifi nginx ufw -y
+apt-get install unifi nginx ufw git -y
+
+# Enable firewall
 
 ufw default deny incoming
 ufw default allow outgoing
@@ -113,6 +134,22 @@ ufw allow 80
 ufw allow $port
 ufw --force enable
 
+
+# Setup nginx to proxy to unifi
+# Let's encrypt certificate
+if [ $(cat $tempfile2) -eq 1 ]; then
+  service nginx stop
+  
+  git clone https://github.com/letsencrypt/letsencrypt /opt/letsencrypt
+  /opt/letsencrypt/letsencrypt-auto certonly \
+    --standalone \
+    --standalone-supported-challenges tls-sni-01 \
+    --email $leEmail \
+    -d $domain
+    
+  $tempfile6
+  service nginx start
+fi
 exit
 
 server {
