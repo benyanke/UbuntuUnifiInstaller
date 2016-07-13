@@ -115,13 +115,13 @@ dialog  --backtitle "$backTitleText" \
 
 dialog  --backtitle "$backTitleText" \
 --title "$messageForProgress" \
---infobox "\nInstalling, please wait. \n\nThis could take a while....\n\n" 0 0 &
+--infobox "\nInstalling, please wait. \n\nThis could take a while....\n\n" 0 0
 
 # from: https://thatservernerd.com/2016/04/01/install-unifi-on-ubuntu-server-14-04/
 
 # Add unifi software to apt lists
-(echo "deb http://www.ubnt.com/downloads/unifi/debian stable ubiquiti" > /etc/apt/sources.list.d/20unifi.list
-apt-key adv --keyserver keyserver.ubuntu.com --recv C0A52C50) > /dev/null 2>&1
+echo "deb http://www.ubnt.com/downloads/unifi/debian stable ubiquiti" > /etc/apt/sources.list.d/20unifi.list;
+apt-key adv --keyserver keyserver.ubuntu.com --recv C0A52C50;
 
 # Get Packages
   apt-get update > /dev/null 2>&1
@@ -163,7 +163,7 @@ openssl dhparam -out /etc/ssl/certs/dhparam.pem 2048  > /dev/null 2>&1 &
     
   service nginx start;
 fi
-)  > /dev/null 2>&1 &
+) &
 
 (
 if [[ "$useNginx" -eq 1 ]]; then
