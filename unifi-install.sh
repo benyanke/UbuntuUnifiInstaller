@@ -17,41 +17,51 @@ fi
 
 #http://www.unixcl.com/2009/12/linux-dialog-utility-short-tutorial.html
 
+file='/home/user9/work/conf.txt'
+tempfile1=/tmp/dialog_1_$$
+tempfile2=/tmp/dialog_2_$$
+tempfile3=/tmp/dialog_3_$$
+
+trap "rm -f $tempfile1 $tempfile2 $tempfile3" 0 1 2 5 15
+
+
+
+
 backTitleText="Unifi Initial Configuration"
 
 dialog  --backtitle "$backTitleText" \
 --title "Domain or IP?" \
---menu "\nWill this Unifi Control Panel be primarily accessable by domain name or by IP address?\n" 12 55 5 \
+--menu "\nWill this Unifi Control Panel be primarily accessable by domain name or by IP address?\n" 0 0 0 \
 1 "IP Address" \
 2 "Domain Name";
 
 dialog  --backtitle "$backTitleText" \
 --title "Let's Encrypt" \
---menu "\nDo you want to set up Let's Encrypt for this control panel?\n" 12 55 5 \
+--menu "\nDo you want to set up Let's Encrypt for this control panel?\n" 0 0 0 \
 1 "Yes" \
 2 "No";
 
 dialog  --backtitle "$backTitleText" \
 --title "Let's Encrypt" \
---msgbox "\nNote: You must already have the DNS configured or Let's Encrypt setup to continue with certificate issuance.\n" 9 50;
+--msgbox "\nNote: You must already have the DNS configured or Let's Encrypt setup to continue with certificate issuance.\n" 0 0;
 
 
 dialog  --backtitle "$backTitleText" \
 --title "Domain" \
---inputbox "\nWhat domain name do you wish to use (ex: example.com)\n?" 10 50;
+--inputbox "\nWhat domain name do you wish to use (ex: example.com)\n?" 0 0;
 
 # dev testing
 domain="test.com";
 
 dialog  --backtitle "$backTitleText" \
 --title "Confirmation?" \
---yesno "\nDo you want to continue installing the Unifi control panel on $domain?\n" 10 30
+--yesno "\nDo you want to continue installing the Unifi control panel on $domain?\n" 0 0
 
 message="Installing Unifi and Let's Encrypt"
 
 dialog  --backtitle "$backTitleText" \
 --title "$message" \
---infobox "\nInstalling, please wait. \n\nThis could take a while....\n" 7 40 &
+--infobox "\nInstalling, please wait. \n\nThis could take a while....\n" 0 0 &
 sleep 5 &
 wait;
 echo "hi";
