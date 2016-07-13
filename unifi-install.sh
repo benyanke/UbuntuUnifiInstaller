@@ -3,9 +3,9 @@
 ##### Unifi Control Panel install script #####
 # Installs the unifi control panel, Let's encrypt, and nginx proxy to handle LE.
 # 
-# Tested on:
-#   Ubuntu 16.04 LTS
-#   Should also work on many debian-based systems
+# Tested on clean installs of:
+#   - Ubuntu 16.04 LTS
+#   - Should also work on most debian-based systems
 #
 # Last modified on 7/13/2016
 # https://github.com/benyanke/Linux-Unifi-Installer/
