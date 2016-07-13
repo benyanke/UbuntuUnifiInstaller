@@ -129,7 +129,7 @@ apt-key adv --keyserver keyserver.ubuntu.com --recv C0A52C50
   apt-get update
   
 #if port is not 8443, setup nginx proxy
-if [[ "$port" -ne 8443]] || [[ $useLe -eq 1]]; then
+if [[ "$port" -ne 8443]] || [[ "$useLe" -eq 1 ]]; then
   apt-get install unifi ufw git nginx -y
   useNginx=1
 else
@@ -152,7 +152,7 @@ ufw --force enable
 
 # Setup nginx to proxy to unifi
 # Let's encrypt certificate
-if [[ $useLe -eq 1 ]]; then
+if [[ "$useLe" -eq 1 ]]; then
   service nginx stop
   if [ -d "/opt/letsencrypt"]; then  
     git clone https://github.com/letsencrypt/letsencrypt /opt/letsencrypt
