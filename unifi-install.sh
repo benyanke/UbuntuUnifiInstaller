@@ -141,7 +141,7 @@ fi
 
 # Enable firewall
 ufw disable
-ufw reset
+ufw --force reset
 ufw default deny incoming
 ufw default allow outgoing
 ufw allow 22
