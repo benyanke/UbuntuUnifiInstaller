@@ -128,7 +128,7 @@ apt-key adv --keyserver keyserver.ubuntu.com --recv C0A52C50;
   
 # if port is not 8443 OR we're using Let's Encrypt, 
 # setup nginx proxy to handle certs and redirection
-if [ \( "$port" -ne 8443] \) -o \( [ "$useLe" -eq 1 \) ]; then
+if [ \( "$port" -ne 8443 \) -o \( "$useLe" -eq 1 \) ]; then
   apt-get install unifi ufw git nginx -y
   useNginx=1
 else
@@ -235,7 +235,10 @@ ufw --force enable) &
 # Wait for all background tasks to run
 echo "Waiting for install to complete"
 wait;
-service nginx restart
+
+if [[ "$useNginx" -eq 1 ]]; then
+  service nginx restart
+fi
 
 dialog  --backtitle "$backTitleText" \
   --title "Complete!" \
