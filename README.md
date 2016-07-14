@@ -12,7 +12,8 @@ wget https://git.io/vKRg8 -O unifi-install.sh && chmod +x unifi-install.sh && su
 ```
 
 ### Currently tested on 
-* Ubuntu Server 16.04 LTS (64 + 32 bit)
-* Ubuntu Server 14.04.4 LTS  (64 + 32 bit)
+* Ubuntu Server 16.04 LTS (64 & 32 bit)
+* Ubuntu Server 14.04.4 LTS  (64 & 32 bit)
+ 
 
 _Should also work on Raspian (Raspberry Pi), I plan to do an actual test very soon._
