@@ -183,7 +183,7 @@ if [ $useNginx -eq 1 ]; then
 
   echo "server {" > $configFile
   echo "  listen 80;" >> $configFile
-  echo "  return 301 https://\$domain\$request_uri;" >> $configFile
+  echo "  return 301 https://$domain\$request_uri;" >> $configFile
   echo "}" >> $configFile
   echo " " >> $configFile
   echo " " >> $configFile
