@@ -1,7 +1,7 @@
 # Unifi-Installer
 Bash installer script for the Unifi Controller for Ubiquity's unifi access points, including integration with Let's Encrypt (via nginx 
  
-Right now, it's only working for Let's Encrypt + Nginx, but I plan to also get it localhost proxying), direct standalone installing will be fully supported very soon.
+Currently, only the Let's Encrypt + Nginx implementation works, but I plan to also get direct standalone installing working soon.
 
 ### Currently tested on clean installs of
 * Ubuntu Server 16.04 LTS
