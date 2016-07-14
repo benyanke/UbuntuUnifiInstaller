@@ -8,7 +8,11 @@ Currently, only the Let's Encrypt + Nginx implementation works, but I plan to al
 
 Simply run:
 ```bash
-https://git.io/vKRg8
+wget https://git.io/vKRg8 -O unifi-install.sh && chmod +x unifi-install.sh && sudo ./unifi-install.sh
+```
+or
+```bash
+curl https://git.io/vKRg8 | sudo bash
 ```
 
 ### Currently tested on clean installs of
