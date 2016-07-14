@@ -10,10 +10,6 @@ Simply run:
 ```bash
 wget https://git.io/vKRg8 -O unifi-install.sh && chmod +x unifi-install.sh && sudo ./unifi-install.sh
 ```
-or
-```bash
-curl https://git.io/vKRg8 | sudo bash
-```
 
 ### Currently tested on clean installs of
 * Ubuntu Server 16.04 LTS
