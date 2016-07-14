@@ -4,6 +4,13 @@ Bash installer script for the Unifi Controller for Ubiquity's unifi access point
  
 Currently, only the Let's Encrypt + Nginx implementation works, but I plan to also get direct standalone installing working soon. Also need to get automatic certificate renewal added.
 
+### How To Use
+
+Simply run:
+```bash
+https://git.io/vKRg8
+```
+
 ### Currently tested on clean installs of
 * Ubuntu Server 16.04 LTS
 
