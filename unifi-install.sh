@@ -45,7 +45,7 @@ backTitleText="Unifi Initial Configuration"
 dialog  --backtitle "$backTitleText" \
 --title "Domain or IP?" \
 --menu "\nWill this Unifi Control Panel be accessable by domain name or by IP address?\n\n" 0 0 0 \
-1 "IP Address" \
+1 "IP Address (not fully supported yet)" \
 2 "Domain Name"  2> $tempfile1
 
 # domain option
