@@ -1,8 +1,8 @@
 # _Ubiquity Unifi Controller_ Install Script for Linux
 ## With Let's Encrypt
-Bash installer script for the Unifi Controller for Ubiquity's unifi access points, including integration with Let's Encrypt (via nginx 
+Bash installer script for the Unifi Controller for Ubiquity's unifi access points, including integration with Let's Encrypt (via nginx)
  
-Currently, only the Let's Encrypt + Nginx implementation works, but I plan to also get direct standalone installing working soon. Also need to get automatic certificate renewal added.
+Currently, only the Let's Encrypt + Nginx implementation works, but I plan to also get direct standalone installing working soon. Also need to get automatic certificate renewal added to crontab with this tool.
 
 ### How To Use
 
