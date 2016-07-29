@@ -1,4 +1,4 @@
-# _Ubiquity Unifi Controller_ Installer for Linux
+# _Ubiquity Unifi Controller_ Install Script for Linux
 ## With Let's Encrypt
 Bash installer script for the Unifi Controller for Ubiquity's unifi access points, including integration with Let's Encrypt (via nginx 
  
