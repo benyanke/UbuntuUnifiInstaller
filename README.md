@@ -6,7 +6,7 @@ Currently, only the Let's Encrypt + Nginx implementation works, but I plan to al
 
 ### How To Use
 
-Simply run:
+Simply run this one line in your terminal:
 ```bash
 wget https://git.io/vKRg8 -O unifi-install.sh && chmod +x unifi-install.sh && sudo ./unifi-install.sh
 ```
