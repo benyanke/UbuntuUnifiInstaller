@@ -16,4 +16,4 @@ wget https://git.io/vKRg8 -O unifi-install.sh && chmod +x unifi-install.sh && su
 * Ubuntu Server 14.04.1 LTS  (64 & 32 bit)
  
 
-_Should also work on Raspian (Raspberry Pi), I plan to do an actual test very soon._
+_Should also work on Raspian (Raspberry Pi) and other debian-based OSes, I plan to do an actual test very soon._
