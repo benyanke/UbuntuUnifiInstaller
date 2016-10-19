@@ -38,9 +38,5 @@ echo " ";
 echo "Waiting for install to complete"
 wait;
 
-dialog  --backtitle "$backTitleText" \
-  --title "Complete!" \
-  --infobox "\nSetup complete! \n\n Visit https://$domain:$port to view Unifi control panel.\n\n" 0 0;
-  
 exit
 
